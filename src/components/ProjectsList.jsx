@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { projectsRef } from '../firebase';
 import { setProjects } from '../actions';
+import ProjectItem from './ProjectItem';
 
 class ProjectsList extends Component {
 
@@ -16,37 +17,28 @@ class ProjectsList extends Component {
       })
       console.log('projects', projects);
       this.props.setProjects(projects);
-      console.log('this.props', this.props);
     })
   }
+
 
   render() {
     return(
       <div>
-        {/* 
-          {
-            this.props.projects.map((project, index) => {
-              const{ title, description, link } = project;
-              return(
-                <div key={index} >
-                    <h3>{title}</h3>
-                    <p>{description}</p>
-                    <span>{link}</span>
-                </div>
-              )
-            })
-          }
-        */}
+        {
+          this.props.projects.map((project, index) => {
+            return(
+              <ProjectItem key={index} project={project}/>
+            )
+          })
+        }
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  console.log('state', state);
-  const { projects } = state;
   return {
-    projects
+    projects: state
   }
 }
 
